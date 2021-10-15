@@ -1,0 +1,19 @@
+--List all customers from Germany and include when it was invoiced first
+
+SELECT 
+     invoiceId,
+	 customerId,
+	 InvoiceDate
+	
+FROM Invoice as I1
+WHERE CustomerId IN
+(
+   SELECT CustomerId
+   FROM Customer
+   WHERE country = 'Canada'
+) and InvoiceDate =
+(
+   SELECT MIN(InvoiceDate)
+   FROM Invoice as I2
+   where I1.CustomerId=I2.CustomerId
+);
