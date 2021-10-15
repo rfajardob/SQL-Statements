@@ -1,0 +1,23 @@
+CREATE PROCEDURE sp_product_listing 
+as
+declare 
+@nameproduct varchar(20),
+@date1 datetime,
+@date2 datetime
+set @nameproduct= 'jack%'
+set @date1= 'jun,01,2001'
+set @date2 ='jun,30,2001'
+select products.name,
+products.unit_price,
+products.quantity_in_stock,
+suppliers.name
+from products
+inner join suppliers on products.supplier_id=suppliers.supplier_id
+inner join order_details on products.product_id=order_details.product_id
+inner join orders on order_details.order_id=orders.order_id
+where products.name like @nameproduct and orders.order_date between  @date1 and @date2
+go
+
+/*To execute
+
+execute sp_product_listing
