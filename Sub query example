@@ -1,0 +1,10 @@
+SELECT 
+     productid
+   , unitprice
+FROM Production.Products
+WHERE supplierid IN
+(
+   SELECT supplierid
+   FROM Production.Suppliers
+   WHERE country = N'Germany'
+);
