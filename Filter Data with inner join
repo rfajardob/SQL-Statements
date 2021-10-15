@@ -1,0 +1,10 @@
+select order_details.order_id,
+order_details.quantity,
+order_details.product_id,
+products.supplier_id,
+products.reorder_level,
+products.supplier_id
+from order_details
+INNER JOIN    products  ON products.product_id = products.product_id
+where order_details.quantity >100
+order by order_details.order_id
