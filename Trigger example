@@ -1,0 +1,19 @@
+CREATE TRIGGER tr_qty_check
+ON order_details
+FOR update
+AS
+DECLARE @quantity int,@order_id int, @product_id int
+SELECT @quantity=quantity, @order_id=order_id, @product_id=product_id from inserted
+if @quantity>0
+UPDATE products
+SET quantity_in_stock=quantity_in_stock-@quantity
+WHERE product_id=@product_id
+ELSE
+   BEGIN
+select'product_id'= @product_id,
+'order_id'=@order_id,
+'quantity'=@quantity,
+'quantity in stock'=products.quantity_in_stock
+from products
+where product_id=@product_id
+end ;
