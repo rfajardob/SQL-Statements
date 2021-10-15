@@ -1,0 +1,11 @@
+CREATE PROCEDURE sp_employee_information 
+(
+	@emp_id int
+)
+AS
+	SELECT	*
+	FROM	employee
+	WHERE	employee_id = @emp_id
+	     
+GO
+execute sp_employee_information @emp_id='5'
